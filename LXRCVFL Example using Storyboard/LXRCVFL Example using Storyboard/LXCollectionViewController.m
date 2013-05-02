@@ -18,10 +18,36 @@
 
 @implementation LXCollectionViewController
 
+-(IBAction)sliderValueChanged:(UISlider *)sender
+{
+    self.zoomLevel = self.zoomController.value;
+    [self.collectionView reloadData];
+}
+
+
+- (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath
+{
+
+    return CGSizeMake(160 + self.zoomLevel, 240 + self.zoomLevel);
+
+}
+
+-(void) addZoomController {
+    self.zoomController = [[UISlider alloc] initWithFrame:CGRectMake(0, self.view.frame.size.height - 50, self.view.frame.size.width, 50)];
+    [self.zoomController addTarget:self action:@selector(sliderValueChanged:)
+                  forControlEvents:UIControlEventValueChanged];
+    
+    self.zoomController.minimumValue = -400;
+    self.zoomController.maximumValue = 400;
+    
+    self.zoomLevel = 0;
+    [self.view addSubview:self.zoomController];
+}
 - (void)viewDidLoad {
     [super viewDidLoad];
     
     self.deck = [self constructsDeck];
+    [self addZoomController];
 }
 
 - (NSMutableArray *)constructsDeck {
