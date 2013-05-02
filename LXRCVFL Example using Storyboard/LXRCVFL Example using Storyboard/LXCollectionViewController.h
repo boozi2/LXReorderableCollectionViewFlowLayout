@@ -12,5 +12,7 @@
 @interface LXCollectionViewController : UICollectionViewController <LXReorderableCollectionViewDataSource, LXReorderableCollectionViewDelegateFlowLayout>
 
 @property (strong, nonatomic) NSMutableArray *deck;
+@property  (strong, nonatomic) UISlider *zoomController;
+@property (nonatomic) CGFloat zoomLevel;
 
 @end
